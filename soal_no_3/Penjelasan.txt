@@ -1,0 +1,1 @@
+disini saya menggunakan flutter dan juga php native yang mana didalamnya saya menggunaka CRUD dan juga beberapa konfigurasi pada flutter,yang mana saya menggunakan php native sebagai back end yang mana didalamnya dia bisa mengakses langsung database dan untu frontend saya menggunakan flutter karena saya sedang mendalami flutter.
