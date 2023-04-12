@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:test_magang/onBoarding/onBoarding1.dart';
+import 'package:test_magang/Auth/login.dart';
+import 'package:test_magang/Page/home.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -19,7 +20,7 @@ class _SplashState extends State<Splash> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => onBoarding1(),
+          builder: (context) => Login(),
         ),
       );
     });
@@ -34,11 +35,6 @@ class _SplashState extends State<Splash> {
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(top: 200),
-            // child: Image.asset(
-            //   "assets/Splash.png",
-            //   width: MediaQuery.of(context).size.width / 1,
-            //   height: MediaQuery.of(context).size.height / 2,
-            // ),
             child: Text(
               "App Bumil",
               style: TextStyle(

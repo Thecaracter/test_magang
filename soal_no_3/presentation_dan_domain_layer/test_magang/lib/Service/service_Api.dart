@@ -45,3 +45,42 @@ class UserService {
     }
   }
 }
+
+class UserDelete {
+  final String apiUrl = 'http://172.29.128.1/test_magang/deleteuser.php';
+
+  Future<Map<String, dynamic>> deleteUser(String id) async {
+    final response = await http.post(Uri.parse(apiUrl), body: {'id': id});
+
+    if (response.statusCode == 200) {
+      final result = json.decode(response.body);
+
+      return {'success': result['success'], 'message': result['message']};
+    } else {
+      throw Exception('Failed to delete user with ID $id');
+    }
+  }
+}
+
+class UserUpdate {
+  final String apiUrl = 'http://172.29.128.1/test_magang/updateuser.php';
+
+  Future<Map<String, dynamic>> updateUser(String id, String username,
+      String password, String noTelp, String alamat) async {
+    final response = await http.post(Uri.parse(apiUrl), body: {
+      'id': id,
+      'username': username,
+      'password': password,
+      'notelp': noTelp,
+      'alamat': alamat
+    });
+
+    if (response.statusCode == 200) {
+      final result = json.decode(response.body);
+
+      return {'success': result['success'], 'message': result['message']};
+    } else {
+      throw Exception('Failed to update user data');
+    }
+  }
+}

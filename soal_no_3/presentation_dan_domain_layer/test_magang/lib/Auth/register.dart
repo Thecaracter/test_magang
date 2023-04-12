@@ -32,17 +32,15 @@ class _RegisterState extends State<Register> {
         _alamat.text.trim(),
       );
       if (result.isNotEmpty) {
-        // Registration successful
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Registration successful")),
         );
-        // Navigate to Login page
+
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const Login()),
         );
       } else {
-        // Registration failed
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text("Registration failed. Please try again."),
@@ -50,7 +48,6 @@ class _RegisterState extends State<Register> {
         );
       }
     } catch (e) {
-      // Handle error
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("An error occurred: $e. Please try again."),
@@ -190,8 +187,7 @@ class _RegisterState extends State<Register> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
-                                    backgroundColor:
-                                        Color.fromARGB(255, 55, 156, 211),
+                                    backgroundColor: Color(0xffFF6584),
                                   ),
                                   onPressed: () {
                                     _register();
@@ -213,7 +209,6 @@ class _RegisterState extends State<Register> {
                                   onPressed: () {
                                     Navigator.push(
                                         context,
-                                        // DetailPage adalah halaman yang dituju
                                         MaterialPageRoute(
                                           builder: (context) => const Login(),
                                         ));

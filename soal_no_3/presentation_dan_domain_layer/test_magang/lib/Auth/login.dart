@@ -146,10 +146,15 @@ class _LoginState extends State<Login> {
                           TextField(
                             controller: emailController,
                             decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide:
+                                    BorderSide(color: Color(0xffFF6584)),
+                              ),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(50.0),
                                   borderSide: BorderSide(color: Colors.black)),
-                              hintText: 'Email@gmail.com',
+                              hintText: 'Username',
                               suffixIcon: Icon(
                                 CarbonIcons.user_avatar,
                               ),
@@ -181,8 +186,7 @@ class _LoginState extends State<Login> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
-                                backgroundColor:
-                                    Color.fromARGB(255, 55, 156, 211),
+                                backgroundColor: Color(0xffFF6584),
                               ),
                               onPressed: _handleLogin,
                               child: const Text("Login"),
