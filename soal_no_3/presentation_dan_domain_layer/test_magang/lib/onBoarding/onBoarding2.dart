@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:test_magang/Auth/login.dart';
 
 class onBoarding2 extends StatefulWidget {
   const onBoarding2({super.key});
@@ -65,7 +66,17 @@ class _onBoarding1State extends State<onBoarding2> {
                 borderRadius: BorderRadius.circular(60.0),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => WillPopScope(
+                    onWillPop: () async => false,
+                    child: Login(),
+                  ),
+                ),
+              );
+            },
             child: const Text("Next"),
           ),
         ],

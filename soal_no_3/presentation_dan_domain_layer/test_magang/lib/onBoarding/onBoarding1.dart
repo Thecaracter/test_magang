@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:test_magang/onBoarding/onBoarding2.dart';
 
 class onBoarding1 extends StatefulWidget {
   const onBoarding1({super.key});
