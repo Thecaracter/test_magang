@@ -1,55 +1,47 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthService {
-  static const String apiUrl = 'http://10.10.0.61/api/login';
+class ApiService {
+  static const String baseUrl = 'http://172.29.128.1/test_magang/register.php';
 
-  Future<void> login(String emailOrUsername, String password) async {
-    try {
-      String email = "";
-      String username = "";
-      if (emailOrUsername.contains("@gmail.com")) {
-        email = emailOrUsername;
-      } else {
-        username = emailOrUsername;
-      }
-      final response = await http.post(Uri.parse(apiUrl), body: {
-        'email': email,
-        'username': username,
-        'password': password,
-      });
+  static Future<Map<String, dynamic>> register(
+      String username, String password, String notelp, String alamat) async {
+    final response = await http.post(Uri.parse('$baseUrl/register'), body: {
+      'username': username,
+      'password': password,
+      'notelp': notelp,
+      'alamat': alamat,
+    });
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to register user.');
+    }
+  }
+}
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
-        if (data.containsKey('user')) {
-          final SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString(
-              'user_token',
-              json.encode(data['user']['name'],
-                  toEncodable: (value) => value.toString()));
-          prefs.setString(
-              'email_token',
-              json.encode(data['user']['email'],
-                  toEncodable: (value) => value.toString()));
-          prefs.setString(
-              'id_kantin',
-              json.encode(data['user']['id_kantin'],
-                  toEncodable: (value) => value.toString()));
-          prefs.setString(
-              'foto',
-              json.encode(data['user']['foto'],
-                  toEncodable: (value) => value.toString()));
-        } else if (data.containsKey('error')) {
-          throw Exception(data['error']);
-        } else {
-          throw Exception('Gagal login');
-        }
-      } else {
-        throw Exception('Gagal login');
-      }
-    } catch (e) {
-      throw Exception('Gagal login');
+class LoginService {
+  static Future<http.Response> login(String username, String password) async {
+    final apiUrl =
+        'http://172.29.128.1/test_magang/login.php'; // sesuaikan dengan URL API login di server Anda
+
+    final response = await http.post(Uri.parse(apiUrl),
+        body: {'username': username, 'password': password});
+
+    return response;
+  }
+}
+
+class UserService {
+  final String apiUrl = 'http://172.29.128.1/test_magang/user.php';
+
+  Future<List<dynamic>> getAllUsers() async {
+    final response = await http.get(Uri.parse(apiUrl));
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Failed to load users');
     }
   }
 }

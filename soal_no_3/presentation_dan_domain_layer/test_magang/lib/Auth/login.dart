@@ -29,18 +29,22 @@ class _LoginState extends State<Login> {
   Future<void> _handleLogin() async {
     String emailOrUsername = emailController.text;
     String password = passwordController.text;
-    AuthService authService = AuthService();
+
     try {
-      await authService.login(emailOrUsername, password);
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => WillPopScope(
-            onWillPop: () async => false,
-            child: Home(),
+      final response = await LoginService.login(emailOrUsername, password);
+      if (response.statusCode == 200) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => WillPopScope(
+              onWillPop: () async => false,
+              child: Home(),
+            ),
           ),
-        ),
-      );
+        );
+      } else {
+        throw Exception('Login gagal. Status code: ${response.statusCode}');
+      }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

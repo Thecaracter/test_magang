@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carbon_icons/carbon_icons.dart';
 import 'package:test_magang/Auth/login.dart';
+import 'package:test_magang/Service/service_Api.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -10,12 +11,53 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final TextEditingController _username = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _notelp = TextEditingController();
+  final TextEditingController _alamat = TextEditingController();
   bool _obscureText = true;
 
   void _toggleVisibility() {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  Future<void> _register() async {
+    try {
+      final result = await ApiService.register(
+        _username.text.trim(),
+        _password.text.trim(),
+        _notelp.text.trim(),
+        _alamat.text.trim(),
+      );
+      if (result.isNotEmpty) {
+        // Registration successful
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Registration successful")),
+        );
+        // Navigate to Login page
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Login()),
+        );
+      } else {
+        // Registration failed
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Registration failed. Please try again."),
+          ),
+        );
+      }
+    } catch (e) {
+      // Handle error
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("An error occurred: $e. Please try again."),
+        ),
+      );
+      print(e);
+    }
   }
 
   @override
@@ -80,6 +122,7 @@ class _RegisterState extends State<Register> {
                               Text("Register to your account"),
                               SizedBox(height: 20),
                               TextField(
+                                controller: _username,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20.0),
@@ -93,6 +136,7 @@ class _RegisterState extends State<Register> {
                               ),
                               SizedBox(height: 20),
                               TextField(
+                                controller: _password,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(50.0),
@@ -110,6 +154,7 @@ class _RegisterState extends State<Register> {
                               ),
                               SizedBox(height: 20),
                               TextField(
+                                controller: _notelp,
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
@@ -124,6 +169,7 @@ class _RegisterState extends State<Register> {
                               ),
                               SizedBox(height: 20),
                               TextField(
+                                controller: _alamat,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20.0),
@@ -148,12 +194,7 @@ class _RegisterState extends State<Register> {
                                         Color.fromARGB(255, 55, 156, 211),
                                   ),
                                   onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        // DetailPage adalah halaman yang dituju
-                                        MaterialPageRoute(
-                                          builder: (context) => const Login(),
-                                        ));
+                                    _register();
                                   },
                                   child: const Text("Register"),
                                 ),
