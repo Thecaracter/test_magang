@@ -146,11 +146,6 @@ class _LoginState extends State<Login> {
                           TextField(
                             controller: emailController,
                             decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide:
-                                    BorderSide(color: Color(0xffFF6584)),
-                              ),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(50.0),
                                   borderSide: BorderSide(color: Colors.black)),
