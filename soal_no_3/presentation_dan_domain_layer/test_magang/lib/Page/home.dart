@@ -55,7 +55,15 @@ class _HomeState extends State<Home> {
                       children: [
                         Text(
                           data['username'],
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(fontSize: 15),
+                        ),
+                        // Text(
+                        //   data['password'],
+                        //   style: TextStyle(fontSize: 15),
+                        // ),
+                        Text(
+                          data['no_telp'],
+                          style: TextStyle(fontSize: 15),
                         ),
                         Row(
                           children: [
